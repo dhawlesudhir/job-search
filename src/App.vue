@@ -1,11 +1,10 @@
 <script>
-import MainNav from "@/components/MainNav.vue";
-import TheHero from "@/components/TheHero.vue";
+import MainNav from "@/components/Navigations/MainNav.vue";
 export default {
   name: "App",
   components: {
     MainNav,
-    TheHero,
+    // TheHero,
   },
 };
 </script>
@@ -13,6 +12,7 @@ export default {
 <template>
   <div class="wrapper">
     <MainNav />
-    <TheHero />
+    <!-- <TheHero /> -->
+    <router-view></router-view>
   </div>
 </template>

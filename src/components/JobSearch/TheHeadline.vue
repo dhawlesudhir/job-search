@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="mb-16">
     <h1 class="mb-14 text-8xl font-bold tracking-tighter">
       <span :class="actionClasses">{{ action }} </span><br />for everyone
     </h1>
@@ -8,11 +8,13 @@
 </template>
 
 <script>
+import nextElement from "@/utils/nextElement.js";
+
 export default {
   name: "TheHeadline",
   data() {
     return {
-      action: "Code",
+      action: "Build",
       intervalObj: null,
     };
   },
@@ -32,10 +34,8 @@ export default {
   methods: {
     changeAction() {
       this.intervalObj = setInterval(() => {
-        const actions = ["Build", "Design", "Creat", "Code"];
-        const currentActionIndex = actions.indexOf(this.action);
-        const nextActionIndex = [currentActionIndex + 1] % 4;
-        this.action = actions[nextActionIndex];
+        const actions = ["Build", "Design", "Create", "Code"];
+        this.action = nextElement(actions, this.action);
       }, 2000);
     },
   },
