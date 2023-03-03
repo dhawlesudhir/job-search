@@ -35,17 +35,22 @@
 
 <script>
 import JobListing from "@/components/JobResults/JobListing.vue";
-import axios from "axios";
+import { useJobsStore } from "../../stores/jobs";
+import { mapState, mapActions } from "pinia";
 
 export default {
   name: "JobListings",
+  components: {
+    JobListing,
+  },
   data() {
     return {
-      jobs: [],
+      //   jobs: [],
       itemsPerPage: 10,
     };
   },
   computed: {
+    ...mapState(useJobsStore, ["jobs"]),
     currentPage() {
       const currentPage = Number.parseInt(this.$route.query.page || "1");
       const maxPages = this.jobs.length / this.itemsPerPage;
@@ -67,12 +72,11 @@ export default {
       return nextPage > maxPages ? undefined : nextPage;
     },
   },
-  components: {
-    JobListing,
+  methods: {
+    ...mapActions(useJobsStore, ["runGetJob"]),
   },
   async mounted() {
-    const response = await axios.get("http://localhost:3000/jobs");
-    this.jobs = response.data;
+    await this.runGetJob();
   },
 };
 </script>

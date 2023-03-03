@@ -47,7 +47,7 @@ export default {
   name: "JobListing",
   props: {
     job: {
-      type: String,
+      type: Object,
       required: false,
     },
   },

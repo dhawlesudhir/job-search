@@ -45,7 +45,8 @@
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigations/ProfileImage.vue";
 import SubNav from "@/components/Navigations/SubNav.vue";
-
+import { mapState, mapActions } from "pinia";
+import { useUserStore } from "@/stores/user";
 export default {
   name: "Main",
   components: {
@@ -57,7 +58,6 @@ export default {
     return {
       company: "Aloha Technology",
       title: "DevOnDemand",
-      isLoggedIn: false,
       menuItems: [
         {
           title: "Home",
@@ -71,10 +71,16 @@ export default {
           title: "Contact",
           url: "Home",
         },
+        {
+          title: "Teams",
+          url: "TeamsView",
+        },
       ],
     };
   },
   computed: {
+    // ...mapStores(useUserStore), // userStore obj available
+    ...mapState(useUserStore, ["isLoggedIn"]), // isLoggedIn available
     headerHeighClass() {
       return {
         "h-16": !this.isLoggedIn,
@@ -83,9 +89,7 @@ export default {
     },
   },
   methods: {
-    userLogin() {
-      this.isLoggedIn = true;
-    },
+    ...mapActions(useUserStore, ["userLogin"]), // userLogin function will be available
   },
 };
 </script>
