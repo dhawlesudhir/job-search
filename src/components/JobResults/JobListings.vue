@@ -35,7 +35,7 @@
 
 <script>
 import JobListing from "@/components/JobResults/JobListing.vue";
-import { useJobsStore } from "../../stores/jobs";
+import { useJobsStore } from "@/stores/jobs";
 import { mapState, mapActions } from "pinia";
 
 export default {
@@ -50,17 +50,17 @@ export default {
     };
   },
   computed: {
-    ...mapState(useJobsStore, ["jobs"]),
+    ...mapState(useJobsStore, ["filteredJobs"]),
     currentPage() {
       const currentPage = Number.parseInt(this.$route.query.page || "1");
-      const maxPages = this.jobs.length / this.itemsPerPage;
+      const maxPages = Math.ceil(this.filteredJobs.length / this.itemsPerPage);
       return currentPage > maxPages ? maxPages : currentPage;
     },
     displayedJobs() {
       const currentPage = this.currentPage;
       const startIndex = (currentPage - 1) * this.itemsPerPage;
       const endIndex = currentPage * this.itemsPerPage;
-      return this.jobs.slice(startIndex, endIndex);
+      return this.filteredJobs.slice(startIndex, endIndex);
     },
     previousPage() {
       const previousPage = this.currentPage - 1;
@@ -68,15 +68,15 @@ export default {
     },
     nextPage() {
       const nextPage = this.currentPage + 1;
-      const maxPages = this.jobs.length / this.itemsPerPage;
+      const maxPages = Math.ceil(this.filteredJobs.length / this.itemsPerPage);
       return nextPage > maxPages ? undefined : nextPage;
     },
   },
-  methods: {
-    ...mapActions(useJobsStore, ["runGetJob"]),
-  },
   async mounted() {
     await this.runGetJob();
+  },
+  methods: {
+    ...mapActions(useJobsStore, ["runGetJob"]),
   },
 };
 </script>
