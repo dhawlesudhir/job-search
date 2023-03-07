@@ -13,27 +13,52 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "CollasibleAccordian",
-  props: {
-    header: {
-      type: String,
-      required: false,
-    },
+<script setup>
+import { ref, computed } from "vue";
+
+// commented code is option API
+
+// export default {
+// name: "CollasibleAccordian",
+// props: {
+//   header: {
+//     type: String,
+//     required: false,
+//   },
+// },
+
+defineProps({
+  header: {
+    type: String,
+    required: false,
   },
-  data() {
-    return { isOpen: false };
-  },
-  computed: {
-    caretIcon() {
-      return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"];
-    },
-  },
-  methods: {
-    open() {
-      this.isOpen = !this.isOpen;
-    },
-  },
-};
+});
+
+// data() {
+//   return { isOpen: false };
+// },
+
+const isOpen = ref(false);
+
+// computed: {
+//   caretIcon() {
+//     return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"];
+//   },
+// },
+
+const caretIcon = computed(() => {
+  return isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"];
+});
+
+// methods: {
+//   open() {
+//     this.isOpen = !this.isOpen;
+//   },
+// },
+
+function open() {
+  isOpen.value = !isOpen.value;
+}
+
+// };
 </script>

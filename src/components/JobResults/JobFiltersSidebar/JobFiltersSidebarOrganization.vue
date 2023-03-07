@@ -23,30 +23,22 @@
     </div>
   </CollasibleAccordian>
 </template>
-<script>
-import { mapActions, mapState } from "pinia";
+<script setup>
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 import CollasibleAccordian from "../../Shared/CollasibleAccordian.vue";
-export default {
-  name: "JobFiltersSidebarOrgnization",
-  components: {
-    CollasibleAccordian,
-  },
-  data() {
-    return {
-      selectedOrganizations: [],
-    };
-  },
-  computed: {
-    ...mapState(useJobsStore, ["getOrganizationNames"]),
-  },
-  methods: {
-    ...mapActions(useUserStore, ["storeSelectedOrganizations"]),
-    selectOrganization() {
-      this.storeSelectedOrganizations(this.selectedOrganizations);
-      this.$router.push({ name: "JobResult" });
-    },
-  },
-};
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const selectedOrganizations = ref([]);
+const router = useRouter();
+const userStore = useUserStore();
+const jobStore = useJobsStore();
+
+const getOrganizationNames = computed(() => jobStore.getOrganizationNames);
+
+function selectOrganization() {
+  userStore.storeSelectedOrganizations(selectedOrganizations.value);
+  router.push({ name: "JobResult" });
+}
 </script>

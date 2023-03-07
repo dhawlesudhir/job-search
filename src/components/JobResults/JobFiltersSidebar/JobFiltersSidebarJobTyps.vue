@@ -19,30 +19,22 @@
     </div>
   </CollasibleAccordian>
 </template>
-<script>
-import { mapActions, mapState } from "pinia";
+<script setup>
+import CollasibleAccordian from "@/components/Shared/CollasibleAccordian.vue";
 import { useUserStore } from "@/stores/user";
 import { useJobsStore } from "@/stores/jobs";
-import CollasibleAccordian from "@/components/Shared/CollasibleAccordian.vue";
-export default {
-  name: "JobFiltersSidebarJobTyps",
-  components: {
-    CollasibleAccordian,
-  },
-  data() {
-    return {
-      selectedJobTyped: [],
-    };
-  },
-  computed: {
-    ...mapState(useJobsStore, ["getJobTypes"]),
-  },
-  methods: {
-    ...mapActions(useUserStore, ["storeSelectJobTyped"]),
-    selectJobType() {
-      this.storeSelectJobTyped(this.selectedJobTyped);
-      this.$router.push({ name: "JobResult" });
-    },
-  },
-};
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const selectedJobTyped = ref([]);
+
+const router = useRouter();
+const jobStore = useJobsStore();
+const userStore = useUserStore();
+
+const getJobTypes = computed(() => jobStore.getJobTypes);
+
+function selectJobType() {
+  userStore.storeSelectJobTyped(selectedJobTyped.value);
+}
 </script>
