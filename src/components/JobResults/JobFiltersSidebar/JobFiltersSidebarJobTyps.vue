@@ -36,5 +36,6 @@ const getJobTypes = computed(() => jobStore.getJobTypes);
 
 function selectJobType() {
   userStore.storeSelectJobTyped(selectedJobTyped.value);
+  router.push({ name: "JobResults" });
 }
 </script>

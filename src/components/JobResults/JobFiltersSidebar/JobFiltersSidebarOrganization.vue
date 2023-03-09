@@ -39,6 +39,6 @@ const getOrganizationNames = computed(() => jobStore.getOrganizationNames);
 
 function selectOrganization() {
   userStore.storeSelectedOrganizations(selectedOrganizations.value);
-  router.push({ name: "JobResult" });
+  router.push({ name: "JobResults" });
 }
 </script>

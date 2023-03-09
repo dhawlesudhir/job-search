@@ -7,7 +7,7 @@ import TeamsView from "@/views/TeamsView.vue";
 
 const routes = [
   { path: "/", name: "Home", component: HomeView },
-  { path: "/jobs/result", name: "JobResult", component: JobResultsView },
+  { path: "/jobs/result", name: "JobResults", component: JobResultsView },
   { path: "/profilepage/:id", name: "Profile", component: ProfilePage },
   { path: "/job/results/:id", name: "JobView", component: JobView },
   { path: "/teams", name: "TeamsView", component: TeamsView },

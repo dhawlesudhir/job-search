@@ -4,11 +4,9 @@
       <div
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8 px-8"
       >
-        <router-link
-          :to="{ name: 'Home' }"
-          class="flex h-full items-center text-xl"
-          >{{ company }}</router-link
-        >
+        <router-link :to="{ name: 'Home' }" class="flex h-full items-center text-xl">{{
+          company
+        }}</router-link>
         <h2 class="ml-8 flex h-full items-center">{{ title }}</h2>
 
         <nav class="fixed right-0 mr-6 h-16">
@@ -26,12 +24,7 @@
             </li>
             <div class="ml-3 flex h-full items-center">
               <profile-image v-if="isLoggedIn" />
-              <action-button
-                v-else
-                text="Sign in"
-                type="primary"
-                :onclick="userLogin"
-              />
+              <action-button v-else text="Sign in" type="primary" :onclick="userLogin" />
             </div>
           </ul>
         </nav>
@@ -65,7 +58,7 @@ export default {
         },
         {
           title: "Jobs",
-          url: "JobResult",
+          url: "JobResults",
         },
         {
           title: "Contact",

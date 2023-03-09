@@ -10,7 +10,7 @@
               v-model="selectedValues"
               type="checkbox"
               class="mr-3"
-              @change="selectJobType"
+              @change="selectValues"
             />
             <label :for="value">{{ value }}</label>
           </li>
@@ -43,8 +43,8 @@ const props = defineProps({
   },
 });
 
-function selectJobType() {
+function selectValues() {
   props.action(selectedValues.value);
-  router.push({ name: "JobsResult" });
+  router.push({ name: "JobResults" });
 }
 </script>
