@@ -1,9 +1,14 @@
 import getJobsData from "@/apis/jobsapi";
 import { defineStore } from "pinia";
 import { useUserStore } from "@/stores/user";
+import type { Job } from "@/apis/types";
+
+interface JobsState {
+  jobs: Job[];
+}
 
 export const useJobsStore = defineStore("jobs", {
-  state: () => ({
+  state: (): JobsState => ({
     jobs: [],
   }),
   actions: {

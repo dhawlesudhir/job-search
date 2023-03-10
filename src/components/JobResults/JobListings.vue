@@ -1,7 +1,11 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <job-listing v-for="job in displayedJobs" key="job.id" :job="job"></job-listing>
+      <job-listing
+        v-for="job in displayedJobs"
+        key="job.id"
+        :job="job"
+      ></job-listing>
     </ol>
     <div class="mx-auto mt-8">
       <div class="flex flex-row flex-nowrap">
@@ -31,18 +35,26 @@ import JobListing from "@/components/JobResults/JobListing.vue";
 import { useJobsStore } from "@/stores/jobs";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import usePreviousAndNextPages from "@/composable/usePreviousAndNextPages";
 
 const route = useRoute();
 const jobStore = useJobsStore();
 let itemsPerPage = ref(10);
 
 const filteredJobs = computed(() => jobStore.filteredJobs);
+const maxPages = computed(() =>
+  Math.ceil(filteredJobs.value.length / itemsPerPage.value)
+);
 
 const currentPage = computed(() => {
   const currentPage = Number.parseInt(route.query.page || "1");
-  const maxPages = Math.ceil(filteredJobs.value.length / itemsPerPage.value);
-  return currentPage > maxPages ? maxPages : currentPage;
+  return currentPage > maxPages.value ? maxPages.value : currentPage;
 });
+
+const { previousPage, nextPage } = usePreviousAndNextPages(
+  currentPage,
+  maxPages
+);
 
 const displayedJobs = computed(() => {
   let currPage = currentPage.value;
@@ -51,20 +63,7 @@ const displayedJobs = computed(() => {
   return filteredJobs.value.slice(startIndex, endIndex);
 });
 
-const previousPage = computed(() => {
-  const previousPage = currentPage.value - 1;
-  return previousPage < 1 ? undefined : previousPage;
-});
-
-const nextPage = computed(() => {
-  const nextPage = currentPage.value + 1;
-  const maxPages = Math.ceil(filteredJobs.value.length / itemsPerPage.value);
-  return nextPage > maxPages ? undefined : nextPage;
-});
-
-onMounted(() => {
-  jobStore.runGetJob();
-});
+onMounted(jobStore.runGetJob);
 
 // computed: {
 //   ...mapState(useJobsStore, ["filteredJobs"]),
