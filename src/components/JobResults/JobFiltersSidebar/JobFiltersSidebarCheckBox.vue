@@ -23,7 +23,7 @@
 import CollasibleAccordian from "@/components/Shared/CollasibleAccordian.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
+import { useUserStore } from "@/stores/user";
 const router = useRouter();
 
 const selectedValues = ref([]);
@@ -47,4 +47,10 @@ function selectValues() {
   props.action(selectedValues.value);
   router.push({ name: "JobResults" });
 }
+const userStore = useUserStore();
+userStore.$onAction(({ after, name }) => {
+  after(() => {
+    if (name === "clear") selectedValues.value = [];
+  });
+});
 </script>

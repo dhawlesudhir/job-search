@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { computed, toRefs } from "vue";
+import { computed, toRefs, defineEmits } from "vue";
 
 const props = defineProps({
   text: {
