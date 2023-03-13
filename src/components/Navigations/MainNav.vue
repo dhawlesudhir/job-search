@@ -23,66 +23,54 @@
               >
             </li>
             <div class="ml-3 flex h-full items-center">
-              <profile-image v-if="isLoggedIn" />
-              <action-button v-else text="Sign in" type="primary" :onclick="userLogin" />
+              <profile-image v-if="userStore.isLoggedIn" />
+              <action-button
+                v-else
+                text="Sign in"
+                type="primary"
+                :onclick="userStore.userLogin"
+              />
             </div>
           </ul>
         </nav>
       </div>
-      <sub-nav v-if="isLoggedIn" />
+      <sub-nav v-if="userStore.isLoggedIn" />
     </div>
   </header>
 </template>
 
-<script>
+<script setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigations/ProfileImage.vue";
 import SubNav from "@/components/Navigations/SubNav.vue";
-import { mapState, mapActions } from "pinia";
+// import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
-export default {
-  name: "Main",
-  components: {
-    ActionButton,
-    ProfileImage,
-    SubNav,
+import { ref, computed } from "vue";
+
+const company = ref("Aloha Technology");
+const title = ref("DevOnDemand");
+const menuItems = ref([
+  {
+    title: "Home",
+    url: "Home",
   },
-  data() {
-    return {
-      company: "Aloha Technology",
-      title: "DevOnDemand",
-      menuItems: [
-        {
-          title: "Home",
-          url: "Home",
-        },
-        {
-          title: "Jobs",
-          url: "JobResults",
-        },
-        {
-          title: "Contact",
-          url: "Home",
-        },
-        {
-          title: "Teams",
-          url: "TeamsView",
-        },
-      ],
-    };
+  {
+    title: "Jobs",
+    url: "JobResults",
   },
-  computed: {
-    // ...mapStores(useUserStore), // userStore obj available
-    ...mapState(useUserStore, ["isLoggedIn"]), // isLoggedIn available
-    headerHeighClass() {
-      return {
-        "h-16": !this.isLoggedIn,
-        "h-32": this.isLoggedIn,
-      };
-    },
+  {
+    title: "Contact",
+    url: "Home",
   },
-  methods: {
-    ...mapActions(useUserStore, ["userLogin"]), // userLogin function will be available
+  {
+    title: "Teams",
+    url: "TeamsView",
   },
-};
+]);
+
+const userStore = useUserStore();
+const headerHeighClass = computed(() => ({
+  "h-16": !userStore.isLoggedIn,
+  "h-32": userStore.isLoggedIn,
+}));
 </script>

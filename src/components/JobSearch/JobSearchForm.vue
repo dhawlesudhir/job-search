@@ -9,7 +9,7 @@
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
       <div class="relative flex h-full flex-1 items-center pr-3">
         <label for="" class="absolute left-0 -top-10">Role</label>
-        <text-input placeholder="Software engineer" v-model="role"></text-input>
+        <TextInput placeholder="Software engineer" v-model="role"></TextInput>
       </div>
 
       <span
@@ -20,7 +20,7 @@
 
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label for="" class="absolute -top-10 left-0">Where?</label>
-        <text-input placeholder="Los angels" v-model="joblocaltion"></text-input>
+        <TextInput placeholder="Los angels" v-model="joblocaltion"></TextInput>
       </div>
     </div>
     <action-button text="Search" type="secondary" class="rounded-r-3xl"></action-button>

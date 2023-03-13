@@ -21,19 +21,26 @@
         :unique-values="organizationNames"
         :action="userStore.storeSelectedOrganizations"
       />
+      <div v-for="degree in degreeTypes">
+        <i>{{ degree }}</i>
+      </div>
     </section>
   </div>
 </template>
 <script setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import JobFiltersSidebarCheckBox from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarCheckBox.vue";
-import { useUserStore } from "@/stores/user.js";
-import { useJobsStore } from "@/stores/jobs.js";
-import { computed } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useJobsStore } from "@/stores/jobs";
+import { computed, onMounted } from "vue";
 
 const jobStore = useJobsStore();
 const jobTypes = computed(() => jobStore.getJobTypes);
 const organizationNames = computed(() => jobStore.getOrganizationNames);
-
 const userStore = useUserStore();
+
+const degreeTypes = computed(async () => {
+  await jobStore.getDegreeTypes;
+});
+console.log(degreeTypes);
 </script>

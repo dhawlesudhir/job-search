@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClass1">{{ text }}</button>
+  <button :class="buttonClass">{{ text }}</button>
 </template>
 
 <script setup>
@@ -19,7 +19,7 @@ const props = defineProps({
 
 const { type } = toRefs(props);
 
-const buttonClass1 = computed(() => {
+const buttonClass = computed(() => {
   return {
     [type.value]: true,
   };

@@ -1,11 +1,7 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <job-listing
-        v-for="job in displayedJobs"
-        key="job.id"
-        :job="job"
-      ></job-listing>
+      <job-listing v-for="job in displayedJobs" :key="job.id" :job="job"></job-listing>
     </ol>
     <div class="mx-auto mt-8">
       <div class="flex flex-row flex-nowrap">
@@ -18,6 +14,7 @@
             class="mx-3 text-sm font-semibold text-brand-blue-1"
             >Previous
           </router-link>
+
           <router-link
             v-if="nextPage"
             :to="{ name: 'JobResults', query: { page: nextPage } }"
@@ -51,10 +48,7 @@ const currentPage = computed(() => {
   return currentPage > maxPages.value ? maxPages.value : currentPage;
 });
 
-const { previousPage, nextPage } = usePreviousAndNextPages(
-  currentPage,
-  maxPages
-);
+const { previousPage, nextPage } = usePreviousAndNextPages(currentPage, maxPages);
 
 const displayedJobs = computed(() => {
   let currPage = currentPage.value;

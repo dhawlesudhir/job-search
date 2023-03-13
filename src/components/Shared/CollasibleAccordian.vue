@@ -1,9 +1,6 @@
 <template>
   <div class="boarder-b border-solid border-brand-gray-2 py-5">
-    <div
-      class="flex cursor-pointer flex-wrap items-center justify-between"
-      @click="open"
-    >
+    <div class="flex cursor-pointer flex-wrap items-center justify-between" @click="open">
       <h3 class="text-base font-semibold">{{ header }}</h3>
       <font-awesome-icon :icon="caretIcon" />
     </div>
@@ -13,7 +10,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from "vue";
 
 // commented code is option API
