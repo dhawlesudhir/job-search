@@ -39,8 +39,6 @@ const jobTypes = computed(() => jobStore.getJobTypes);
 const organizationNames = computed(() => jobStore.getOrganizationNames);
 const userStore = useUserStore();
 
-const degreeTypes = computed(async () => {
-  await jobStore.getDegreeTypes;
-});
+const degreeTypes = computed(async () => await jobStore.getDegreeTypes);
 console.log(degreeTypes);
 </script>
