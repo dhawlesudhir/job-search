@@ -5,13 +5,39 @@ import ProfilePage from "@/components/Resources/ProfilePage.vue";
 import JobView from "@/views/JobViews.vue";
 import TeamsView from "@/views/TeamsView.vue";
 import LoginPage from "@/views/LoginPage.vue";
+import AboutPage from "@/views/AboutPage.vue";
 const routes = [
-  { path: "/", name: "Home", component: HomeView },
-  { path: "/jobs/result", name: "JobResults", component: JobResultsView },
-  { path: "/profilepage/:id", name: "Profile", component: ProfilePage },
-  { path: "/job/results/:id", name: "JobView", component: JobView },
-  { path: "/teams", name: "TeamsView", component: TeamsView },
+  {
+    path: "/",
+    name: "Home",
+    component: HomeView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/jobs/result",
+    name: "JobResults",
+    component: JobResultsView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/profiles",
+    name: "AvailableProfiles",
+    component: ProfilePage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/job/results/:id",
+    name: "JobView",
+    component: JobView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/teams",
+    name: "TeamsView",
+    component: TeamsView,
+  },
   { path: "/login", name: "LoginPage", component: LoginPage },
+  { path: "/about", name: "AboutPage", component: AboutPage },
 ];
 
 const router = createRouter({

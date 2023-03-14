@@ -61,13 +61,17 @@ const menuItems = ref([
     url: "JobResults",
   },
   {
-    title: "Teams",
+    title: "Profiles",
+    url: "AvailableProfiles",
+  },
+  {
+    title: "Team",
     url: "TeamsView",
   },
-  // {
-  //   title: "Projects",
-  //   url: "Home",
-  // },
+  {
+    title: "About",
+    url: "AboutPage",
+  },
 ]);
 
 const userStore = useUserStore();
