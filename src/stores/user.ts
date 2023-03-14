@@ -5,6 +5,8 @@ export interface UserState {
   selectedJobTyped: string[];
   selectedOrganizations: string[];
   selectedDegrees: string[];
+  skillsSearched: string;
+  locationSearched: string;
 }
 
 export const useUserStore = defineStore("user", {
@@ -13,6 +15,8 @@ export const useUserStore = defineStore("user", {
     selectedOrganizations: [],
     selectedJobTyped: [],
     selectedDegrees: [],
+    skillsSearched: "",
+    locationSearched: "",
   }),
   actions: {
     userLogin() {
@@ -31,7 +35,14 @@ export const useUserStore = defineStore("user", {
       this.selectedOrganizations = [];
       this.selectedJobTyped = [];
       this.selectedDegrees = [];
-      console.log("cleared");
+      this.skillsSearched = "";
+      this.locationSearched = "";
+    },
+    storeSkillsSearched(skills: string) {
+      this.skillsSearched = skills;
+    },
+    storeLocationSearched(location: string) {
+      this.locationSearched = location;
     },
   },
 });

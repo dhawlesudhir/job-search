@@ -4,9 +4,11 @@
       <div
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8 px-8"
       >
-        <router-link :to="{ name: 'Home' }" class="flex h-full items-center text-xl">{{
-          company
-        }}</router-link>
+        <router-link
+          :to="{ name: 'Home' }"
+          class="flex h-full items-center text-xl"
+          >{{ company }}</router-link
+        >
         <h2 class="ml-8 flex h-full items-center">{{ title }}</h2>
 
         <nav class="fixed right-0 mr-6 h-16">
@@ -59,13 +61,13 @@ const menuItems = ref([
     url: "JobResults",
   },
   {
-    title: "Contact",
-    url: "Home",
-  },
-  {
     title: "Teams",
     url: "TeamsView",
   },
+  // {
+  //   title: "Projects",
+  //   url: "Home",
+  // },
 ]);
 
 const userStore = useUserStore();

@@ -4,8 +4,8 @@
       <div v-if="onJobResultPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span
-          ><span class="text-brand-green-1">{{ filteredJobs.length }}</span> jobs
-          matched</span
+          ><span class="text-brand-green-1">{{ filteredJobs.length }}</span>
+          jobs matched</span
         >
       </div>
     </div>

@@ -65,6 +65,28 @@ export const useJobsStore = defineStore("jobs", {
             : filteredJobs;
       }
 
+      if (userStore.skillsSearched.length) {
+        filteredJobs = filteredJobs.filter((job) =>
+          job.title.includes(userStore.skillsSearched)
+        );
+
+        filteredJobs =
+          filteredJobs.length === 0 && !userStore.skillsSearched.length
+            ? state.jobs
+            : filteredJobs;
+      }
+
+      if (userStore.locationSearched.length) {
+        filteredJobs = filteredJobs.filter((job) =>
+          job.locations.includes(userStore.locationSearched)
+        );
+
+        filteredJobs =
+          filteredJobs.length === 0 && !userStore.locationSearched.length
+            ? state.jobs
+            : filteredJobs;
+      }
+
       return filteredJobs;
     },
     getJobTypes(state) {
