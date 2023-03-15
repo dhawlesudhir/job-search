@@ -73,10 +73,20 @@ router.beforeEach(async (to, from, next) => {
       console.log("auth", getCurrenUser);
       next();
     } else {
-      console.log("no access");
-      next("/login");
+      console.log("no access, redicting to login paghe");
+      next({ name: "LoginPage" });
     }
-  } else next();
+  } else if (to.matched.some((record) => record.name == "LoginPage")) {
+    if (await getCurrenUser()) {
+      console.log("alredy logged in , redicting to Home");
+      next({ name: "Home" });
+    } else {
+      next();
+    }
+  } else {
+    console.log("exe");
+    next();
+  }
 });
 
 export default router;
