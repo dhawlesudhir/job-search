@@ -30,7 +30,7 @@
               <router-link
                 v-else-if="!isLoggedIn"
                 :to="{ name: 'LoginPage' }"
-                class="flex h-full items-center py-2.5"
+                class="primary"
                 >Sign in</router-link
               >
 
@@ -57,7 +57,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 // import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
 import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const company = ref("Aloha Technology");
 const title = ref("DevOnDemand");
 const route = useRoute();
@@ -96,6 +96,13 @@ const auth = getAuth();
 function logout() {
   signOut(auth).then(() => {
     console.log("loggedOut");
+    userStore.userLogout();
   });
 }
 </script>
+
+<style scoped>
+.primary {
+  @apply rounded  bg-brand-blue-1 px-5 py-3 font-medium text-white hover:shadow-blue;
+}
+</style>

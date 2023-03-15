@@ -25,6 +25,10 @@ export const useUserStore = defineStore("user", {
       this.loginId = await id;
       this.isLoggedIn = true;
     },
+    userLogout() {
+      this.isLoggedIn = false;
+      this.loginId = "";
+    },
     storeSelectedOrganizations(organizations: string[]) {
       this.selectedOrganizations = organizations;
     },
