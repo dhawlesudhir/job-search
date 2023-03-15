@@ -6,6 +6,9 @@ import JobView from "@/views/JobViews.vue";
 import TeamsView from "@/views/TeamsView.vue";
 import LoginPage from "@/views/LoginPage.vue";
 import AboutPage from "@/views/AboutPage.vue";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useUserStore } from "@/stores/user";
+
 const routes = [
   {
     path: "/",
@@ -46,6 +49,34 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0, left: 0, behavior: "smooth" };
   },
+});
+
+function getCurrenUser() {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      getAuth(),
+      (user) => {
+        removeListener();
+        resolve(user);
+      },
+      reject
+    );
+  });
+}
+
+router.beforeEach(async (to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (await getCurrenUser()) {
+      const userStore = useUserStore();
+      userStore.userLogin(getCurrenUser());
+      console.log("auth", getCurrenUser);
+      next();
+    } else {
+      console.log("no access");
+      next("/login");
+    }
+  } else next();
 });
 
 export default router;

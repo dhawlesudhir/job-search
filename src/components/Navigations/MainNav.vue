@@ -26,11 +26,19 @@
             </li>
             <div class="ml-3 flex h-full items-center">
               <profile-image v-if="userStore.isLoggedIn" />
+
+              <router-link
+                v-else-if="!isLoggedIn"
+                :to="{ name: 'LoginPage' }"
+                class="flex h-full items-center py-2.5"
+                >Sign in</router-link
+              >
+
               <action-button
-                v-else
-                text="Sign in"
-                type="primary"
-                :onclick="userStore.userLogin"
+                v-if="isLoggedIn"
+                text="logout"
+                type="secondary"
+                :onclick="logout"
               />
             </div>
           </ul>
@@ -45,12 +53,14 @@
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigations/ProfileImage.vue";
 import SubNav from "@/components/Navigations/SubNav.vue";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 // import { mapState, mapActions } from "pinia";
 import { useUserStore } from "@/stores/user";
 import { ref, computed } from "vue";
-
+import { useRoute } from "vue-router";
 const company = ref("Aloha Technology");
 const title = ref("DevOnDemand");
+const route = useRoute();
 const menuItems = ref([
   {
     title: "Home",
@@ -74,9 +84,18 @@ const menuItems = ref([
   },
 ]);
 
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+
 const userStore = useUserStore();
 const headerHeighClass = computed(() => ({
   "h-16": !userStore.isLoggedIn,
   "h-32": userStore.isLoggedIn,
 }));
+const auth = getAuth();
+
+function logout() {
+  signOut(auth).then(() => {
+    console.log("loggedOut");
+  });
+}
 </script>

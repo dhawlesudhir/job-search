@@ -7,6 +7,7 @@ export interface UserState {
   selectedDegrees: string[];
   skillsSearched: string;
   locationSearched: string;
+  loginId: Object;
 }
 
 export const useUserStore = defineStore("user", {
@@ -17,9 +18,11 @@ export const useUserStore = defineStore("user", {
     selectedDegrees: [],
     skillsSearched: "",
     locationSearched: "",
+    loginId: {},
   }),
   actions: {
-    userLogin() {
+    async userLogin(id: string) {
+      this.loginId = await id;
       this.isLoggedIn = true;
     },
     storeSelectedOrganizations(organizations: string[]) {

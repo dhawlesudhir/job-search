@@ -32,7 +32,7 @@
           Sign in to your account
         </h2>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form class="mt-8 space-y-6" @submit.prevent="login">
         <input type="hidden" name="remember" value="true" />
         <div class="-space-y-px rounded-md shadow-sm">
           <div>
@@ -41,6 +41,7 @@
               id="email-address"
               name="email"
               type="email"
+              v-model="email"
               autocomplete="email"
               required
               class="relative block w-full rounded-t-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -53,11 +54,17 @@
               id="password"
               name="password"
               type="password"
+              v-model="password"
               autocomplete="current-password"
               required
               class="relative block w-full rounded-b-md border-0 p-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Password"
             />
+          </div>
+          <div>
+            <p v-if="errorCode" class="mt-1 text-sm text-red-500">
+              {{ errorMessage }}
+            </p>
           </div>
         </div>
 
@@ -109,5 +116,51 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "vue-router";
+
+const userStore = useUserStore();
+const router = useRouter();
+
+const email = ref("demo@demo.com");
+const password = ref("Demo@123");
+const errorCode = ref(0);
+const errorMessage = ref("");
+
+function login() {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      userStore.userLogin(user);
+      router.push({ name: "Home" });
+      // ...
+    })
+    .catch((error) => {
+      errorCode.value = error.code;
+
+      switch (error.code) {
+        case "auth/wrong-password":
+          errorMessage.value = "Invalid password";
+          break;
+        case "auth/user-not-found":
+          errorMessage.value = "Invalid user";
+          break;
+        case "auth/too-many-requests":
+          errorMessage.value =
+            "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later";
+          break;
+        default:
+          errorMessage.value = "something went wrong, please try again later";
+          break;
+      }
+
+      console.log("error ", error.code, error.message);
+    });
+}
+</script>
 <style scoped></style>
