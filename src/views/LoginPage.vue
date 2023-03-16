@@ -113,13 +113,34 @@
           </button>
         </div>
       </form>
+      <div class="flex flex-col items-center">
+        <div>
+          <p>or</p>
+        </div>
+        <div class="mt-3">
+          <button
+            class="border-grey-700 h-10 w-20 rounded border-2 border-solid text-2xl hover:shadow-google"
+            @click="signInWithGooglea"
+          >
+            <font-awesome-icon
+              icon="fa-brands fa-google "
+              class="text-google"
+            />
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
@@ -162,5 +183,21 @@ function login() {
       console.log("error ", error.code, error.message);
     });
 }
+
+const signInWithGooglea = () => {
+  console.log("hi");
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(), provider)
+    .then((result) => {
+      console.log(result);
+      // Signed in
+      const user = result.user;
+      userStore.userLogin(user);
+      router.push({ name: "Home" });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 </script>
 <style scoped></style>

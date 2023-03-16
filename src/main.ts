@@ -26,14 +26,18 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
+//importing icons below
 import {
   faSearch,
   faAngleDown,
   faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+
 library.add(faSearch);
 library.add(faAngleDown);
 library.add(faAngleUp);
+library.add(faGoogle);
 
 const pinia = createPinia();
 

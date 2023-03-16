@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", {
     loginId: {},
   }),
   actions: {
-    async userLogin(id: string) {
+    async userLogin(id: Object) {
       this.loginId = await id;
       this.isLoggedIn = true;
     },

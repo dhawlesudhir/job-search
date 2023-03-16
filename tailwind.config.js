@@ -15,10 +15,12 @@ module.exports = {
         "brand-blue-1": "#1967d2",
         "brand-blue-2": "#4285f4",
         "brand-green-1": "#137333",
+        google: "#EB3B05",
       },
       boxShadow: {
         blue: "0 0 3px 3px #4285f4",
         grey: "0 1 3px 0 rgba(60,64,67,0.3)",
+        google: "0 0 2px 2px #EB3B05",
       },
     },
   },

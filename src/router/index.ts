@@ -66,24 +66,28 @@ function getCurrenUser() {
 
 router.beforeEach(async (to, from, next) => {
   // to and from are both route objects. must call `next`.
+  const logindetails = await getCurrenUser();
+  const userStore = useUserStore();
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrenUser()) {
-      const userStore = useUserStore();
-      userStore.userLogin(getCurrenUser());
-      console.log("auth", getCurrenUser);
+    if (logindetails) {
+      userStore.userLogin(logindetails);
       next();
     } else {
       console.log("no access, redicting to login paghe");
       next({ name: "LoginPage" });
     }
   } else if (to.matched.some((record) => record.name == "LoginPage")) {
-    if (await getCurrenUser()) {
+    if (logindetails) {
+      userStore.userLogin(logindetails);
       console.log("alredy logged in , redicting to Home");
-      next({ name: "Home" });
+      next(from);
     } else {
       next();
     }
   } else {
+    if (logindetails) {
+      userStore.userLogin(logindetails);
+    }
     console.log("exe");
     next();
   }
