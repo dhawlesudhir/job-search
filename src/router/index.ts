@@ -1,13 +1,24 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { defineAsyncComponent } from "vue";
 import HomeView from "@/views/HomeView.vue";
-import JobResultsView from "@/views/JobResultsView.vue";
-import ProfilePage from "@/components/Resources/ProfilePage.vue";
-import JobView from "@/views/JobViews.vue";
-import TeamsView from "@/views/TeamsView.vue";
+// import JobResultsView from "@/views/JobResultsView.vue";
+// import ProfilePage from "@/components/Resources/ProfilePage.vue";
+// import JobView from "@/views/JobViews.vue";
+// import TeamsView from "@/views/TeamsView.vue";
 import LoginPage from "@/views/LoginPage.vue";
 import AboutPage from "@/views/AboutPage.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUserStore } from "@/stores/user";
+
+// const ProfilePage = defineAsyncComponent(
+//   () => import("@/components/Resources/ProfilePage.vue")
+// );
+
+// components loading only when they needed
+const ProfilePage = () => import("@/components/Resources/ProfilePage.vue");
+const JobView = () => import("@/views/JobViews.vue");
+const JobResultsView = () => import("@/views/JobResultsView.vue");
+const TeamsView = () => import("@/views/TeamsView.vue");
 
 const routes = [
   {
