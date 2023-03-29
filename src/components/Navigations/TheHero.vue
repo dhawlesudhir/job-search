@@ -33,7 +33,7 @@
           <router-link
             to="/jobs/result"
             class="px-6 pb-4 text-sm text-brand-blue-1"
-            >See job's</router-link
+            >See jobs</router-link
           >
         </router-link>
       </template>
