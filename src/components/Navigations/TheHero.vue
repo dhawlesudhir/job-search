@@ -8,11 +8,7 @@
           <job-search-form />
         </div>
         <div class="col-span-5 col-start-7 self-center justify-self-center">
-          <img
-            src="public/logo.png"
-            alt=""
-            class="h-100 w-100 object-contain"
-          />
+          <img alt="" class="h-100 w-100 object-contain" />
         </div>
         <div class="col-span-1 col-start-12"></div>
       </div>
@@ -36,8 +32,8 @@
 
           <router-link
             to="/jobs/result"
-            class="text-sm px-6 pb-4 text-brand-blue-1"
-            >See jobs</router-link
+            class="px-6 pb-4 text-sm text-brand-blue-1"
+            >See job's</router-link
           >
         </router-link>
       </template>
