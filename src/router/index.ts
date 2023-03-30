@@ -17,6 +17,7 @@ import { useUserStore } from "@/stores/user";
 // components loading only when they needed
 const ProfilePage = () => import("@/components/Resources/ProfilePage.vue");
 const JobView = () => import("@/views/JobViews.vue");
+const Profiles = () => import("@/views/ProfilesPage.vue");
 const JobResultsView = () => import("@/views/JobResultsView.vue");
 const TeamsView = () => import("@/views/TeamsView.vue");
 
@@ -36,7 +37,7 @@ const routes = [
   {
     path: "/profiles",
     name: "AvailableProfiles",
-    component: ProfilePage,
+    component: Profiles,
     meta: { requiresAuth: true },
   },
   {
